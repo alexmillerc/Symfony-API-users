@@ -24,6 +24,6 @@ class ListUserActionTest extends TestCase
 
         // Assert
         //$this->assertSame(Response::HTTP_OK, $statusCode);
-        $this->assertSame(Response::HTTP_NOT_FOUND, $statusCode);
+        $this->assertSame(Response::HTTP_OK, $statusCode);
     }
 }
