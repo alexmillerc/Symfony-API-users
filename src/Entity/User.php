@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * @ORM\Entity()
  * @ORM\Table(name="user")
@@ -59,9 +60,26 @@ class User
      */
     private ?\DateTime $updatedAt = null;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="UserAddress",cascade="persist")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     */
+    private $address; // UserAddress ?
+
+    /**
+     * @ORM\ManyToMany(targetEntity="UserContactPhone",cascade="persist")
+     * @ORM\JoinTable(
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="phonenumber_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $phonenumbers; // ArrayCollection?
+
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->phonenumbers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getId(): int
@@ -110,5 +128,27 @@ class User
     public function getUpdatedAt(): ?\DateTime
     {
         return $this->updatedAt;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    public function setAddress($address): void
+    {
+        $this->updatedAt = new \DateTime();
+        $this->address = $address;
+    }
+
+    public function getPhonenumbers()
+    {
+        return $this->phonenumbers;
+    }
+
+    public function setPhonenumbers($phonenumbers): void
+    {
+        $this->updatedAt = new \DateTime();
+        $this->phonenumbers = $phonenumbers;
     }
 }

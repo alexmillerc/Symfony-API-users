@@ -23,7 +23,6 @@ class ListUserActionTest extends TestCase
         $statusCode = $this->client->getResponse()->getStatusCode();
 
         // Assert
-        //$this->assertSame(Response::HTTP_OK, $statusCode);
         $this->assertSame(Response::HTTP_OK, $statusCode);
     }
 }
